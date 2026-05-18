@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pitch de Negocios - Modelos de Negocio Escalables</title>
+    <!-- Fuente Inter: La opción estándar para interfaces de negocios limpias y modernas -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <style>
+        /* ==========================================================================
+           1. CONFIGURACIÓN BASE Y CONTENEDOR (1280x720)
+           ========================================================================== */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: #030712;
+            font-family: 'Inter', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            overflow-x: hidden;
+            padding: 20px;
+        }
+
+        .slider-wrapper {
+            position: relative;
+            width: 1280px;
+            height: 720px;
+            background-color: #090d16;
+            border-radius: 20px;
+            box-shadow: 0 30px 60px -15px rgba(0, 0, 0, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            overflow: hidden;
+        }
+
+        .slider-track {
+            display: flex;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        .slide {
+            min-width: 100%;
+            height: 100%;
+            padding: 60px 90px;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            background: radial-gradient(circle at 85% 15%, rgba(16, 185, 129, 0.06) 0%, transparent 45%),
+                        radial-gradient(circle at 15% 85%, rgba(99, 102, 241, 0.04) 0%, transparent 45%),
+                        #090d16;
+        }
+
+        /* ==========================================================================
+           2. COMPONENTES VISUALES Y TIPOGRAFÍA
+           ========================================================================== */
+        h1, h2, h3, h4 {
+            color: #ffffff;
+            font-weight: 700;
+            letter-spacing: -0.025em;
+        }
+
+        p, li, th, td {
+            color: #9ca3af;
+            font-size: 16px;
+            line-height: 1.6;
+        }
+
+        .slide-title {
+            font-size: 38px;
+            margin-bottom: 35px;
+            border-left: 5px solid #10b981;
+            padding-left: 18px;
+            text-align: left;
+        }
+
+        .slide-title span {
+            color: #10b981;
+        }
+
+        .badge {
+            display: inline-block;
+            background: rgba(16, 185, 129, 0.12);
+            border: 1px solid rgba(16, 185, 129, 0.25);
+            color: #34d399;
+            padding: 6px 16px;
+            border-radius: 99px;
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            width: 100%;
+            align-items: center;
+        }
+
+        /* Cambiado a Grid de 4 columnas para acomodar los nuevos esquemas de precios */
+        .grid-4 {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            width: 100%;
+        }
+
+        .card {
+            background-color: #111625;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 14px;
+            padding: 30px;
+            height: 100%;
+        }
+
+        .card h3 {
+            color: #34d399;
+            font-size: 22px;
+            margin-bottom: 12px;
+        }
+
+        /* Tarjetas de Precios */
+        .price-card {
+            background: linear-gradient(135deg, #111625 0%, #161d30 100%);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 14px;
+            padding: 30px 20px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 100%;
+        }
+
+        .price-card.featured {
+            border: 2px solid #10b981;
+            box-shadow: 0 10px 25px -10px rgba(16, 185, 129, 0.2);
+            background: linear-gradient(135deg, #111b2e 0%, #111625 100%);
+        }
+
+        .price-card h3 {
+            font-size: 18px;
+            color: #ffffff;
+            margin-bottom: 10px;
+        }
+
+        .price-card .price {
+            font-size: 38px;
+            font-weight: 800;
+            color: #ffffff;
+            margin: 15px 0;
+        }
+
+        .price-card .price span {
+            font-size: 14px;
+            color: #9ca3af;
+            font-weight: 400;
+        }
+
+        .price-card ul {
+            list-style: none;
+            text-align: left;
+            font-size: 13px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            color: #d1d5db;
+            margin-top: 15px;
+        }
+
+        /* Tablas */
+        .table-container {
+            width: 100%;
+            background: #111625;
+            border-radius: 14px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th, td {
+            padding: 18px 24px;
+            text-align: left;
+        }
+
+        th {
+            background-color: rgba(255, 255, 255, 0.02);
+            color: #ffffff;
+            font-weight: 600;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        td {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+            color: #d1d5db;
+        }
+
+        /* ==========================================================================
+           3. BOTONES Y NAVEGACIÓN INTERACTIVA
+           ========================================================================== */
+        .nav-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(17, 22, 37, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #ffffff;
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 18px;
+            transition: all 0.3s ease;
+            z-index: 10;
+        }
+
+        .nav-btn:hover {
+            background-color: #10b981;
+            border-color: #10b981;
+            box-shadow: 0 0 20px rgba(16, 185, 129, 0.4);
+        }
+
+        .prev-btn { left: 25px; }
+        .next-btn { right: 25px; }
+
+        .dots-container {
+            position: absolute;
+            bottom: 25px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 12px;
+            z-index: 10;
+        }
+
+        .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.2);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .dot.active {
+            background-color: #10b981;
+            width: 32px;
+            border-radius: 99px;
+        }
+
+        .keyboard-hint {
+            margin-top: 15px;
+            color: #4b5563;
+            font-size: 13px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="slider-wrapper">
+    <!-- Botones de Control -->
+    <button class="nav-btn prev-btn" id="prevBtn"><i class="fa-solid fa-chevron-left"></i></button>
+    <button class="nav-btn next-btn" id="nextBtn"><i class="fa-solid fa-chevron-right"></i></button>
+
+    <!-- Riel Principal -->
+    <div class="slider-track" id="sliderTrack">
+        
+        <!-- SLIDE 1: PORTADA -->
+        <div class="slide" style="text-align: center; align-items: center;">
+            <span class="badge">Ecosistema Financiero Automático</span>
+            <h1 style="font-size: 54px; margin-bottom: 20px; line-height: 1.25;">Automatizá tu Negocio de Préstamos:<br><span>Más Liquidez, Menos Esfuerzo</span></h1>
+            <p style="font-size: 20px; max-width: 850px; color: #9ca3af;">Transformá tu gestión de cobranza recurrente en un sistema autónomo que recupera capital, coordina a tus empleados y reduce la mora de forma diaria.</p>
+        </div>
+
+        <!-- SLIDE 2: LA SOLUCIÓN -->
+        <div class="slide">
+            <h2 class="slide-title">¿Qué solución <span>traemos a tu negocio?</span></h2>
+            <div class="grid-2">
+                <div class="card">
+                    <h3>Protección del Flujo de Caja</h3>
+                    <p>Eliminamos las demoras en las recaudaciones. El sistema se encarga de calcular la mora exacta de forma automatizada cada madrugada y de recordar los saldos de manera proactiva, asegurando que el capital regrese rápido a tus manos.</p>
+                </div>
+                <div class="card">
+                    <h3>Eliminación de Tareas Manuales</h3>
+                    <p>Olvidate de redactar cientos de mensajes individuales o revisar capturas de pantalla dudosas. Dejás que la Inteligencia Artificial procese, valide y asiente los pagos de manera transparente y segura.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 3: PERFIL DE DUEÑO (ORQUESTACIÓN) -->
+        <div class="slide">
+            <h2 class="slide-title">Perfil de Dueño: <span>Control Centralizado</span></h2>
+            <div class="grid-2">
+                <div>
+                    <p style="font-size: 18px; margin-bottom: 20px;">Como propietario, tenés una cuenta maestra para orquestar toda la operación sin perder el control de la información confidencial:</p>
+                    <ul style="list-style: none; display: flex; flex-direction: column; gap: 15px;">
+                        <li><i class="fa-solid fa-eye" style="color:#10b981; margin-right: 10px;"></i> <strong>Visibilidad Global:</strong> Tablero consolidado con el rendimiento de toda la cartera.</li>
+                        <li><i class="fa-solid fa-user-shield" style="color:#10b981; margin-right: 10px;"></i> <strong>Delegación Inteligente:</strong> Asignación selectiva de clientes específicos a cobradores concretos.</li>
+                        <li><i class="fa-solid fa-lock" style="color:#10b981; margin-right: 10px;"></i> <strong>Privacidad de Datos:</strong> Los empleados solo ven las cuentas que se les permite gestionar.</li>
+                    </ul>
+                </div>
+                <div class="card" style="background-color: rgba(99, 102, 241, 0.03); border-color: rgba(99, 102, 241, 0.1);">
+                    <h3 style="color: #818cf8;"><i class="fa-solid fa-network-wired"></i> Orquestación Total</h3>
+                    <p>Supervisá la efectividad de cobro de cada uno de tus colaboradores desde una única pantalla, sabiendo exactamente quién recaudó el dinero, quién tiene tareas pendientes y cuál es el porcentaje de efectividad de la jornada.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 4: CARGA MASIVA DESDE EXCEL -->
+        <div class="slide">
+            <h2 class="slide-title">Onboarding Inmediato: <span>Carga Masiva</span></h2>
+            <div class="grid-2">
+                <div class="card">
+                    <h3>Migración en un Clic</h3>
+                    <p>Sabemos que tu base de datos actual es valiosa. No necesitás transcribir la información uno por uno de manera forzosa.</p>
+                    <p style="margin-top: 15px; color: #34d399; font-weight: 500;"><i class="fa-solid fa-file-excel"></i> Subís tu archivo Excel y el sistema mapea nombres, saldos y cronogramas al instante.</p>
+                    <p style="margin-top: 10px; font-size: 14px; color: #6b7280;">* Conservás la opción de dar de alta clientes de forma manual (uno por uno) si el flujo del día lo requiere.</p>
+                </div>
+                <div>
+                    <h3 style="color:#ffffff; margin-bottom: 12px;">Flexibilidad Operativa</h3>
+                    <p style="margin-bottom: 15px;">La plataforma está preparada para absorber bases de datos de cientos de deudores de manera masiva, normalizando las cuentas de cobro y asignándoles su hoja de ruta diaria de manera automatizada.</p>
+                    <p>Si surge un nuevo crédito durante el día, podés agregarlo de forma individual en segundos desde tu celular.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 5: OPCIONES FLEXIBLES DE PRECIOS -->
+        <div class="slide">
+            <h2 class="slide-title">Planes Flexibles: <span>De acuerdo a lo que necesites</span></h2>
+            <div class="grid-4">
+                
+                <!-- Plan 1: Independiente -->
+                <div class="price-card">
+                    <div>
+                        <span class="badge" style="background:rgba(245,158,11,0.1); border-color:rgba(245,158,11,0.25); color:#f59e0b; margin-bottom:10px; font-size:11px;">Individual</span>
+                        <h3>Cobrador Independiente</h3>
+                        <div class="price">$50<span style="display:block;">/ mes</span></div>
+                    </div>
+                    <ul>
+                        <li><i class="fa-solid fa-check" style="color:#f59e0b;"></i> 1 Cuenta Maestra</li>
+                        <li><i class="fa-solid fa-check" style="color:#f59e0b;"></i> Carga Masiva Excel</li>
+                        <li><i class="fa-solid fa-check" style="color:#f59e0b;"></i> Cobros manuales e IA</li>
+                    </ul>
+                </div>
+
+                <!-- Plan 2: Por Empleado (Nuevo) -->
+                <div class="price-card" style="border: 1px solid rgba(99, 102, 241, 0.3);">
+                    <div>
+                        <span class="badge" style="background:rgba(99, 102, 241, 0.1); border-color:rgba(99, 102, 241, 0.25); color:#818cf8; margin-bottom:10px; font-size:11px;">Pago por uso</span>
+                        <h3>Dueño: Modulo Flexible</h3>
+                        <div class="price">$40<span style="display:block;">/ mes por empleado</span></div>
+                    </div>
+                    <ul>
+                        <li><i class="fa-solid fa-check" style="color:#818cf8;"></i> Elegís la cantidad justa</li>
+                        <li><i class="fa-solid fa-check" style="color:#818cf8;"></i> Perfil de Dueño Máster</li>
+                        <li><i class="fa-solid fa-check" style="color:#818cf8;"></i> Asignación manual/masiva</li>
+                    </ul>
+                </div>
+
+                <!-- Plan 3: Combo Corporativo -->
+                <div class="price-card featured">
+                    <div>
+                        <span class="badge" style="margin-bottom:10px; font-size:11px;">Ahorro Pack</span>
+                        <h3>Prestamistas con Estructura</h3>
+                        <div class="price">$180<span style="display:block;">/ mes (Hasta 5 emp.)</span></div>
+                    </div>
+                    <ul>
+                        <li><i class="fa-solid fa-check" style="color:#10b981;"></i> <strong>Incluye 5 cuentas</strong></li>
+                        <li><i class="fa-solid fa-check" style="color:#10b981;"></i> Perfil Dueño Administrador</li>
+                        <li><i class="fa-solid fa-check" style="color:#10b981;"></i> Carga Masiva Completa</li>
+                    </ul>
+                </div>
+
+                <!-- Explicación de Control Granular -->
+                <div class="card" style="padding: 20px; display: flex; flex-direction: column; justify-content: center; background-color: rgba(255,255,255,0.01);">
+                    <h4 style="font-size:14px; margin-bottom:8px; color:#ffffff;"><i class="fa-solid fa-sliders" style="color:#10b981;"></i> Control de Límites</h4>
+                    <p style="font-size:12px; line-height:1.4; margin-bottom:8px;">Tanto en el plan de <strong>$40 por empleado</strong> como en el de <strong>$180</strong>, el dueño selecciona la cantidad de clientes específicos para cada empleado.</p>
+                    <p style="font-size:12px; line-height:1.4; color:#6b7280;">Esto evita fugas de información y mantiene la base de datos protegida.</p>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- SLIDE 6: COMPARATIVA DE PROCESOS -->
+        <div class="slide">
+            <h2 class="slide-title">¿Qué gana tu negocio al <span>implementar el sistema?</span></h2>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Área del Negocio</th>
+                            <th>Antes del Sistema (Proceso Manual)</th>
+                            <th>Con la Plataforma (Proceso Automatizado)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Tiempo del Dueño</strong></td>
+                            <td>Atado al control diario de planillas y mensajes recurrentes.</td>
+                            <td>Libre para expandir el capital; el sistema orquesta los cobros solos.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Estructura de Personal</strong></td>
+                            <td>Costosa de auditar y difícil de controlar de manera individual.</td>
+                            <td>Flexible. Pagás $40 por empleado o escalás al combo de $180 según crezcas.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Seguridad de Clientes</strong></td>
+                            <td>Los cobradores tienen acceso a toda la libreta de contactos.</td>
+                            <td>Segmentado. El empleado solo interactúa con los clientes asignados.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- SLIDE 7: CIERRE -->
+        <div class="slide" style="text-align: center; align-items: center;">
+            <h1 style="font-size: 48px; margin-bottom: 25px;">Escalabilidad Sin Límites</h1>
+            <p style="font-size: 20px; max-width: 800px; color: #9ca3af; margin-bottom: 40px;">No dejes que la administración artesanal frene el crecimiento de tus préstamos. Pasá de manejar un negocio de cercanía a liderar una operación de escala, adaptada exactamente a tu estructura.</p>
+            <span class="badge" style="background: rgba(99, 102, 241, 0.12); border-color: rgba(99, 102, 241, 0.25); color: #818cf8;">Estructura de Negocio Validada</span>
+        </div>
+
+    </div>
+
+    <!-- Indicadores Inferiores (Puntos) -->
+    <div class="dots-container" id="dotsContainer"></div>
+</div>
+
+<div class="keyboard-hint">Podés usar las flechas del teclado (← / →) para cambiar de diapositiva</div>
+
+<!-- ==========================================================================
+   4. LOGICA DE INTERACCION DEL CARRUSEL (JAVASCRIPT)
+   ========================================================================== */ -->
+<script>
+    const track = document.getElementById('sliderTrack');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const dotsContainer = document.getElementById('dotsContainer');
+    
+    const slides = document.querySelectorAll('.slide');
+    const totalSlides = slides.length;
+    let currentIndex = 0;
+
+    // Generación dinámica de los puntos indicadores
+    for (let i = 0; i < totalSlides; i++) {
+        const dot = document.createElement('div');
+        dot.classList.add('dot');
+        if (i === 0) dot.classList.add('active');
+        dot.addEventListener('click', () => {
+            currentIndex = i;
+            updateSlider();
+        });
+        dotsContainer.appendChild(dot);
+    }
+
+    const dots = document.querySelectorAll('.dot');
+
+    function updateSlider() {
+        // Mover el riel horizontalmente
+        track.style.transform = `translateX(-${currentIndex * 100}%)`;
+        
+        // Actualizar estados de los indicadores visuales
+        dots.forEach((dot, index) => {
+            if (index === currentIndex) {
+                dot.classList.add('active');
+            } else {
+                dot.classList.remove('active');
+            }
+        });
+    }
+
+    // Comportamiento de botones
+    nextBtn.addEventListener('click', () => {
+        if (currentIndex < totalSlides - 1) {
+            currentIndex++;
+        } else {
+            currentIndex = 0;
+        }
+        updateSlider();
+    });
+
+    prevBtn.addEventListener('click', () => {
+        if (currentIndex > 0) {
+            currentIndex--;
+        } else {
+            currentIndex = totalSlides - 1;
+        }
+        updateSlider();
+    });
+
+    // Soporte para flechas físicas del teclado
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowRight') {
+            nextBtn.click();
+        } else if (e.key === 'ArrowLeft') {
+            prevBtn.click();
+        }
+    });
+</script>
+
+</body>
+</html>
