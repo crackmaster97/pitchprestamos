@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pitch de Negocios - Modelos de Negocio Escalables</title>
+    <title>Pitch de Negocios - Adaptado a Móviles</title>
     <!-- Fuente Inter: La opción estándar para interfaces de negocios limpias y modernas -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -12,7 +12,7 @@
     
     <style>
         /* ==========================================================================
-           1. CONFIGURACIÓN BASE Y CONTENEDOR (1280x720)
+           1. CONFIGURACIÓN BASE Y CONTENEDOR ESCRITORIO (1280x720)
            ========================================================================== */
         * {
             box-sizing: border-box;
@@ -112,7 +112,6 @@
             align-items: center;
         }
 
-        /* Cambiado a Grid de 4 columnas para acomodar los nuevos esquemas de precios */
         .grid-4 {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
@@ -214,9 +213,7 @@
             color: #d1d5db;
         }
 
-        /* ==========================================================================
-           3. BOTONES Y NAVEGACIÓN INTERACTIVA
-           ========================================================================== */
+        /* Controles de escritorio */
         .nav-btn {
             position: absolute;
             top: 50%;
@@ -274,6 +271,78 @@
             margin-top: 15px;
             color: #4b5563;
             font-size: 13px;
+            display: block;
+        }
+
+        /* ==========================================================================
+           4. MEDIA QUERY: OPTIMIZACIÓN COMPLETA PARA SMARTPHONES
+           ========================================================================== */
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+                background-color: #090d16; /* Color unificado */
+            }
+
+            /* Rompe el tamaño fijo de 1280x720 y permite un flujo vertical continuo */
+            .slider-wrapper {
+                width: 100%;
+                height: auto;
+                border-radius: 0;
+                border: none;
+                box-shadow: none;
+                overflow: visible;
+            }
+
+            /* El riel pasa de horizontal a vertical */
+            .slider-track {
+                flex-direction: column;
+                height: auto;
+                transform: none !important; /* Desactiva el movimiento JS en móvil */
+            }
+
+            /* Cada diapositiva se comporta como una sección independiente de lectura */
+            .slide {
+                width: 100%;
+                height: auto;
+                min-height: auto;
+                padding: 50px 20px;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            }
+
+            /* Tipografías adaptadas a pantallas pequeñas */
+            h1 {
+                font-size: 32px !important;
+            }
+
+            .slide-title {
+                font-size: 28px;
+                margin-bottom: 25px;
+            }
+
+            /* Convertir grids complejos en una sola columna vertical */
+            .grid-2, .grid-4 {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            /* Hacer que las tablas tengan scroll horizontal para que no se corten */
+            .table-container {
+                overflow-x: auto;
+            }
+            
+            table {
+                width: 600px; /* Asegura un ancho mínimo interno para legibilidad */
+            }
+
+            th, td {
+                padding: 12px 15px;
+                font-size: 14px;
+            }
+
+            /* Ocultar elementos innecesarios de navegación de escritorio */
+            .nav-btn, .dots-container, .keyboard-hint {
+                display: none !important;
+            }
         }
     </style>
 </head>
@@ -365,7 +434,7 @@
                     </ul>
                 </div>
 
-                <!-- Plan 2: Por Empleado (Nuevo) -->
+                <!-- Plan 2: Por Empleado -->
                 <div class="price-card" style="border: 1px solid rgba(99, 102, 241, 0.3);">
                     <div>
                         <span class="badge" style="background:rgba(99, 102, 241, 0.1); border-color:rgba(99, 102, 241, 0.25); color:#818cf8; margin-bottom:10px; font-size:11px;">Pago por uso</span>
@@ -384,7 +453,7 @@
                     <div>
                         <span class="badge" style="margin-bottom:10px; font-size:11px;">Ahorro Pack</span>
                         <h3>Prestamistas con Estructura</h3>
-                        <div class="price">$180<span style="display:block;">/ mes (Hasta 5 emp.)</span></div>
+                        <div class="price">$300<span style="display:block;">/ mes (Hasta 5 emp.)</span></div>
                     </div>
                     <ul>
                         <li><i class="fa-solid fa-check" style="color:#10b981;"></i> <strong>Incluye 5 cuentas</strong></li>
@@ -396,7 +465,7 @@
                 <!-- Explicación de Control Granular -->
                 <div class="card" style="padding: 20px; display: flex; flex-direction: column; justify-content: center; background-color: rgba(255,255,255,0.01);">
                     <h4 style="font-size:14px; margin-bottom:8px; color:#ffffff;"><i class="fa-solid fa-sliders" style="color:#10b981;"></i> Control de Límites</h4>
-                    <p style="font-size:12px; line-height:1.4; margin-bottom:8px;">Tanto en el plan de <strong>$40 por empleado</strong> como en el de <strong>$180</strong>, el dueño selecciona la cantidad de clientes específicos para cada empleado.</p>
+                    <p style="font-size:12px; line-height:1.4; margin-bottom:8px;">Tanto en el plan de <strong>$40 por empleado</strong> como en el de <strong>$300</strong>, el dueño selecciona la cantidad de clientes específicos para cada empleado.</p>
                     <p style="font-size:12px; line-height:1.4; color:#6b7280;">Esto evita fugas de información y mantiene la base de datos protegida.</p>
                 </div>
 
@@ -424,7 +493,7 @@
                         <tr>
                             <td><strong>Estructura de Personal</strong></td>
                             <td>Costosa de auditar y difícil de controlar de manera individual.</td>
-                            <td>Flexible. Pagás $40 por empleado o escalás al combo de $180 según crezcas.</td>
+                            <td>Flexible. Pagás $40 por empleado o escalás al combo de $300 según crezcas.</td>
                         </tr>
                         <tr>
                             <td><strong>Seguridad de Clientes</strong></td>
@@ -452,7 +521,7 @@
 <div class="keyboard-hint">Podés usar las flechas del teclado (← / →) para cambiar de diapositiva</div>
 
 <!-- ==========================================================================
-   4. LOGICA DE INTERACCION DEL CARRUSEL (JAVASCRIPT)
+   5. LOGICA DE INTERACCION DEL CARRUSEL (JAVASCRIPT)
    ========================================================================== */ -->
 <script>
     const track = document.getElementById('sliderTrack');
@@ -470,8 +539,11 @@
         dot.classList.add('dot');
         if (i === 0) dot.classList.add('active');
         dot.addEventListener('click', () => {
-            currentIndex = i;
-            updateSlider();
+            // Solo ejecuta el cambio si estamos en versión de escritorio (ancho mayor a 768px)
+            if (window.innerWidth > 768) {
+                currentIndex = i;
+                updateSlider();
+            }
         });
         dotsContainer.appendChild(dot);
     }
@@ -479,10 +551,8 @@
     const dots = document.querySelectorAll('.dot');
 
     function updateSlider() {
-        // Mover el riel horizontalmente
         track.style.transform = `translateX(-${currentIndex * 100}%)`;
         
-        // Actualizar estados de los indicadores visuales
         dots.forEach((dot, index) => {
             if (index === currentIndex) {
                 dot.classList.add('active');
@@ -492,7 +562,6 @@
         });
     }
 
-    // Comportamiento de botones
     nextBtn.addEventListener('click', () => {
         if (currentIndex < totalSlides - 1) {
             currentIndex++;
@@ -511,12 +580,22 @@
         updateSlider();
     });
 
-    // Soporte para flechas físicas del teclado
     document.addEventListener('keydown', (e) => {
-        if (e.key === 'ArrowRight') {
-            nextBtn.click();
-        } else if (e.key === 'ArrowLeft') {
-            prevBtn.click();
+        if (window.innerWidth > 768) {
+            if (e.key === 'ArrowRight') {
+                nextBtn.click();
+            } else if (e.key === 'ArrowLeft') {
+                prevBtn.click();
+            }
+        }
+    });
+
+    // Resetear el transform si el usuario cambia el tamaño de la pantalla (ej. rotar la tablet)
+    window.addEventListener('resize', () => {
+        if (window.innerWidth <= 768) {
+            track.style.transform = 'none';
+        } else {
+            updateSlider();
         }
     });
 </script>
